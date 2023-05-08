@@ -13,9 +13,12 @@ function App() {
   let hours = ('0' + today.getHours()).slice(-2) - 1;
   let minutes = ('0' + today.getMinutes()).slice(-2);
 
+  //? 이게뭐야
+  //! 이거주의
+  //TODO: 이거하세요
+
   const data = {
-    serviceKey:
-      'IvPYwwrcAkf4XhepyiPms9XJvyn7XFnY6FLRx57UDVoUsvT71YAo8%2BQsEmOz1XzNiICh3Kg1P%2F%2FLMDaihP6OmQ%3D%3D',
+    serviceKey: process.env.REACT_APP_SERVICEKEY,
     numOfRows: '10',
     pageNo: '1',
     dataType: 'JSON',
