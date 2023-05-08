@@ -1,4 +1,4 @@
-// LCC DFS 좌표변환을 위한 기초 자료
+/* eslint-disable */ // LCC DFS 좌표변환을 위한 기초 자료
 var RE = 6371.00877; // 지구 반경(km)
 var GRID = 5.0; // 격자 간격(km)
 var SLAT1 = 30.0; // 투영 위도1(degree)
@@ -19,7 +19,9 @@ export function getXY(code, v1, v2) {
   var olon = OLON * DEGRAD;
   var olat = OLAT * DEGRAD;
 
-  var sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+  var sn =
+    Math.tan(Math.PI * 0.25 + slat2 * 0.5) /
+    Math.tan(Math.PI * 0.25 + slat1 * 0.5);
   sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
   var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
   sf = (Math.pow(sf, sn) * Math.cos(slat1)) / sn;
