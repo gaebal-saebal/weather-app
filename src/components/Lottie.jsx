@@ -10,7 +10,7 @@ const Lottie = ({ listIdx }) => {
     lottie.loadAnimation({
       container: container.current,
       renderer: 'svg',
-      loop: false,
+      loop: true,
       autoplay: true,
       animationData: list[listIdx],
     });
