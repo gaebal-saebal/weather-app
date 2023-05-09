@@ -3,10 +3,15 @@ import Lottie from './components/Lottie';
 import { getXY } from './functions/getXY';
 import { useEffect, useState } from 'react';
 import { weatherApiUrl as data } from './constants/weatherApiUrl';
+import { rainTypeFn } from './constants/rainTypeFn';
 
 function App() {
   const [weather, setWeather] = useState([]);
   const [temp, setTemp] = useState([]);
+  const [sky, setSky] = useState([]);
+  const [humid, setHumid] = useState([]);
+  const [rainType, setRainType] = useState([]);
+  const [rainAmount, setRainAmount] = useState([]);
 
   const getWeather = () => {
     try {
@@ -34,16 +39,20 @@ function App() {
     }
   };
 
-  const getTempArr = () => {
+  const getWeatherDataArr = (stateChangeFn, category) => {
     //weather의 각 배열 요소들 중 key: category가 T1H인 것
-    const arr = weather.slice(0, 6);
-    setTemp(arr);
+    const arr = weather.filter((a) => a.category === category);
+    stateChangeFn(arr);
   };
 
   useEffect(() => getWeather(), []);
 
   useEffect(() => {
-    getTempArr();
+    getWeatherDataArr(setTemp, 'T1H');
+    getWeatherDataArr(setSky, 'SKY');
+    getWeatherDataArr(setHumid, 'REH');
+    getWeatherDataArr(setRainType, 'PTY');
+    getWeatherDataArr(setRainAmount, 'RN1');
   }, [weather]);
 
   return (
@@ -52,9 +61,42 @@ function App() {
 
       {/* 객체는 직접 브라우저에 출력할 수 없음 */}
       <article>
-        {temp.map((data, i) => {
-          return <p key={i}>{data.category}</p>;
-        })}
+        <div>
+          <p>기온</p>
+          {temp.map((data, i) => {
+            return <span key={i}>{data.fcstValue}℃</span>;
+          })}
+          <p>날씨</p>
+          {sky.map((data, i) => {
+            return (
+              <span key={i}>
+                {data.fcstValue === '1'
+                  ? '맑음'
+                  : data.fcstValue === '3'
+                  ? '구름많음'
+                  : data.fcstValue === '4'
+                  ? '흐림'
+                  : '오류'}
+              </span>
+            );
+          })}
+          <p>습도</p>
+          {humid.map((data, i) => {
+            return <span key={i}>{data.fcstValue}%</span>;
+          })}
+          <p>강수형태</p>
+          {rainType.map((data, i) => {
+            return <span key={i}>{rainTypeFn(data.fcstValue)}</span>;
+          })}
+          <p>1시간 강수량</p>
+          {rainAmount.map((data, i) => {
+            return (
+              <span key={i}>
+                {data.fcstValue === '강수없음' ? '0' : data.fcstValue}mm
+              </span>
+            );
+          })}
+        </div>
       </article>
     </div>
   );
