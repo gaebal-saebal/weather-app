@@ -54,6 +54,9 @@ function App() {
         const weatherData = data.response.body.items.item;
         setWeather(weatherData);
         console.log(weatherData);
+      })
+      .catch((err) => {
+        alert(`오류가 발생했습니다. 관리자에게 문의하세요(에러 코드: ${err.message})`);
       });
   };
 
