@@ -1,11 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import lottie from 'lottie-web';
 import logo from '../constants/logo.json';
+import sunny from '../constants/weather-sunny.json';
+import partlyCloudy from '../constants/weather-partly-cloudy.json';
+import cloudy from '../constants/weather-cloudy.json';
+import rainy from '../constants/weather-rainy.json';
+import snowy from '../constants/weather-snowy.json';
 
 const Lottie = ({ listIdx }) => {
   const container = useRef();
   //import 해 온 모든 lottie image array에 담기
-  const list = [logo];
+  const list = [logo, sunny, partlyCloudy, cloudy, rainy, snowy];
 
   useEffect(() => {
     lottie.loadAnimation({
