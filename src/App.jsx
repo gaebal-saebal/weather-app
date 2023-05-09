@@ -6,6 +6,7 @@ import { weatherApiUrl as data } from './constants/weatherApiUrl';
 
 function App() {
   const [weather, setWeather] = useState([]);
+  const [temp, setTemp] = useState([]);
 
   const getWeather = () => {
     try {
@@ -33,14 +34,28 @@ function App() {
     }
   };
 
+  const getTempArr = () => {
+    //weather의 각 배열 요소들 중 key: category가 T1H인 것
+    const arr = weather.slice(0, 6);
+    setTemp(arr);
+  };
+
   useEffect(() => getWeather(), []);
+
+  useEffect(() => {
+    getTempArr();
+  }, [weather]);
 
   return (
     <div className='App'>
       <Lottie listIdx='0' />
 
       {/* 객체는 직접 브라우저에 출력할 수 없음 */}
-      {/* <p>{weather}</p> */}
+      <article>
+        {temp.map((data, i) => {
+          return <p key={i}>{data.category}</p>;
+        })}
+      </article>
     </div>
   );
 }
