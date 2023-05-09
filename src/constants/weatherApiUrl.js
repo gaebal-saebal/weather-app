@@ -6,14 +6,10 @@ let day = ('0' + today.getDate()).slice(-2);
 let hours = ('0' + today.getHours()).slice(-2) - 1;
 let minutes = ('0' + today.getMinutes()).slice(-2);
 
-//? 이게뭐야
-//! 이거주의
-//TODO: 이거하세요
-
 export const weatherApiUrl = {
   //env 파일 변경 시 npm run start 재시동 해야 적용됩니다
   serviceKey: process.env.REACT_APP_SERVICEKEY,
-  numOfRows: '10',
+  numOfRows: '60',
   pageNo: '1',
   dataType: 'JSON',
   baseDate: year + month + day,
