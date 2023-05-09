@@ -1,4 +1,7 @@
+/* eslint-disable */
+
 import { Button } from '@mui/material';
+import Card from '@mui/material/Card';
 import Lottie from './components/Lottie';
 import { getXY } from './functions/getXY';
 import { useEffect, useState } from 'react';
@@ -12,6 +15,8 @@ function App() {
   const [humid, setHumid] = useState([]);
   const [rainType, setRainType] = useState([]);
   const [rainAmount, setRainAmount] = useState([]);
+
+  const [index, setIndex] = useState('1');
 
   const getWeather = () => {
     try {
@@ -28,7 +33,6 @@ function App() {
           .then((data) => {
             const weatherData = data.response.body.items.item;
             setWeather(weatherData);
-            console.log(weatherData);
           })
           .catch((err) => {
             alert(`${err.message})`);
@@ -55,12 +59,34 @@ function App() {
     getWeatherDataArr(setRainAmount, 'RN1');
   }, [weather]);
 
+  const weatherImg = () => {
+    let listIdx = '1';
+    console.log(sky[0]);
+    // let skyValue = sky[0].fcstValue;
+    // skyValue === '1'
+    //   ? (listIdx = '1')
+    //   : skyValue === '3'
+    //   ? (listIdx = '2')
+    //   : skyValue === '4'
+    //   ? (listIdx = '3')
+    //   : '오류';
+    return listIdx;
+  };
+
+  useEffect(() => setIndex(weatherImg()), [sky]);
+
   return (
     <div className='App'>
       <Lottie listIdx='0' />
 
       {/* 객체는 직접 브라우저에 출력할 수 없음 */}
       <article>
+        <div>
+          <Card variant='outlined'>
+            <Lottie listIdx={index} />
+          </Card>
+        </div>
+
         <div>
           <p>기온</p>
           {temp.map((data, i) => {
