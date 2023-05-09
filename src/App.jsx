@@ -12,7 +12,7 @@ function App() {
   let year = today.getFullYear();
   let month = ('0' + (today.getMonth() + 1)).slice(-2);
   let day = ('0' + today.getDate()).slice(-2);
-  let hours = ('0' + today.getHours()).slice(-2);
+  let hours = ('0' + today.getHours()).slice(-2) - 1;
   let minutes = ('0' + today.getMinutes()).slice(-2);
 
   //? 이게뭐야
@@ -30,9 +30,7 @@ function App() {
     nx: 60,
     ny: 127,
   };
-  const URL = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${data.serviceKey}&numOfRows=${data.numOfRows}&pageNo=${data.pageNo}&dataType=${
-    data.dataType
-  }&base_date=${data.baseDate.toString()}&base_time=${data.baseTime.toString()}&nx=${data.nx.toString()}&ny=${data.ny.toString()}`;
+  const URL = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${data.serviceKey}&numOfRows=${data.numOfRows}&pageNo=${data.pageNo}&dataType=${data.dataType}&base_date=${data.baseDate}&base_time=${data.baseTime}&nx=${data.nx}&ny=${data.ny}`;
 
   try {
     navigator.geolocation.getCurrentPosition(function (pos) {
