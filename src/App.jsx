@@ -78,14 +78,14 @@ function App() {
         : (listIdx = '오류');
     }
     if (rainType.length > 0) {
-      let rainTypeValue = '7';
+      let rainTypeValue = rainType[0].fcstValue;
       rainTypeValue === '1' ||
       rainTypeValue === '2' ||
       rainTypeValue === '5' ||
       rainTypeValue === '6'
         ? (listIdx = '6')
         : rainTypeValue === '3' || rainTypeValue === '7'
-        ? (listIdx = '7 ')
+        ? (listIdx = '7')
         : null;
     }
     console.log(listIdx);
