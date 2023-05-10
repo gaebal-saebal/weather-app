@@ -65,7 +65,7 @@ function App() {
   }, [weather]);
 
   const weatherImg = () => {
-    let listIdx = '';
+    let listIdx = '0';
     if (sky.length > 0) {
       let skyValue = sky[0].fcstValue;
       skyValue === '1' ? (listIdx = '1') : skyValue === '3' ? (listIdx = '3') : skyValue === '4' ? (listIdx = '4') : (listIdx = '오류');
