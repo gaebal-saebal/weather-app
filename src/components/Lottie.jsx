@@ -22,9 +22,9 @@ const Lottie = ({ listIdx }) => {
       animationData: list[listIdx],
     });
     // eslint-disable-next-line
-  }, []);
+  }, [listIdx]);
 
-  return <div ref={container}></div>;
+  return <div ref={container} />;
 };
 
 export default Lottie;
