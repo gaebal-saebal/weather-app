@@ -87,7 +87,7 @@ function App() {
         <Lottie listIdx='5' />
       </div>
       <article>
-        <img src={`${index}.gif`} />
+        <img src={process.env.PUBLIC_URL + `/${index}.gif`} alt='날씨' />
         <div>
           <p>기온</p>
           {temp.map((data, i) => {
