@@ -5,14 +5,7 @@ import { getXY } from './functions/getXY';
 import { useEffect, useState } from 'react';
 import { weatherApiUrl as data } from './constants/weatherApiUrl';
 import { rainTypeFn } from './constants/rainTypeFn';
-import { css } from '@emotion/react';
-
-const logoStyle = css`
-  display: flex;
-  justify-content: center;
-  background: pink;
-  height: 300px;
-`;
+import { logoStyle } from './App.style';
 
 function App() {
   const [weather, setWeather] = useState([]);
@@ -106,8 +99,19 @@ function App() {
         <Lottie listIdx='5' />
       </div>
       <article>
-        <img src={process.env.PUBLIC_URL + `/${index}.gif`} alt='날씨' />
-
+        {/* TODO : 현재날씨이미지, 현재기온, 현재습도, 강수량 = 카드처럼! */}
+        <div>
+          <div>날짜</div>
+          <div>
+            <img src={process.env.PUBLIC_URL + `/${index}.gif`} alt='날씨' />
+            <span>기온</span>
+          </div>
+          <div>
+            <span>습도</span>
+            <span>강수량</span>
+          </div>
+        </div>
+        {/* //TODO : 날씨 이미지 6개 쭉 나오고 기온이랑, 시간 나오도록! */}
         <div>
           <p>기온</p>
           {temp.map((data, i) => {
