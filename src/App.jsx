@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+/* eslint-disable */
 import Lottie from './components/Lottie';
 import { getXY } from './functions/getXY';
 import { useEffect, useState } from 'react';
@@ -68,8 +69,26 @@ function App() {
     let listIdx = '0';
     if (sky.length > 0) {
       let skyValue = sky[0].fcstValue;
-      skyValue === '1' ? (listIdx = '1') : skyValue === '3' ? (listIdx = '3') : skyValue === '4' ? (listIdx = '4') : (listIdx = '오류');
+      skyValue === '1'
+        ? (listIdx = '1')
+        : skyValue === '3'
+        ? (listIdx = '3')
+        : skyValue === '4'
+        ? (listIdx = '4')
+        : (listIdx = '오류');
     }
+    if (rainType.length > 0) {
+      let rainTypeValue = '7';
+      rainTypeValue === '1' ||
+      rainTypeValue === '2' ||
+      rainTypeValue === '5' ||
+      rainTypeValue === '6'
+        ? (listIdx = '6')
+        : rainTypeValue === '3' || rainTypeValue === '7'
+        ? (listIdx = '7 ')
+        : null;
+    }
+    console.log(listIdx);
     return listIdx;
   };
 
@@ -88,6 +107,7 @@ function App() {
       </div>
       <article>
         <img src={process.env.PUBLIC_URL + `/${index}.gif`} alt='날씨' />
+
         <div>
           <p>기온</p>
           {temp.map((data, i) => {
@@ -95,7 +115,17 @@ function App() {
           })}
           <p>날씨</p>
           {sky.map((data, i) => {
-            return <span key={i}>{data.fcstValue === '1' ? '맑음' : data.fcstValue === '3' ? '구름많음' : data.fcstValue === '4' ? '흐림' : '오류'}</span>;
+            return (
+              <span key={i}>
+                {data.fcstValue === '1'
+                  ? '맑음'
+                  : data.fcstValue === '3'
+                  ? '구름많음'
+                  : data.fcstValue === '4'
+                  ? '흐림'
+                  : '오류'}
+              </span>
+            );
           })}
           <p>습도</p>
           {humid.map((data, i) => {
@@ -107,7 +137,11 @@ function App() {
           })}
           <p>1시간 강수량</p>
           {rainAmount.map((data, i) => {
-            return <span key={i}>{data.fcstValue === '강수없음' ? '0' : data.fcstValue}mm</span>;
+            return (
+              <span key={i}>
+                {data.fcstValue === '강수없음' ? '0' : data.fcstValue}mm
+              </span>
+            );
           })}
         </div>
       </article>
