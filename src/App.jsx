@@ -61,19 +61,22 @@ function App() {
 
   const weatherImg = () => {
     let listIdx = '1';
-    console.log(sky[0]);
-    // let skyValue = sky[0].fcstValue;
-    // skyValue === '1'
-    //   ? (listIdx = '1')
-    //   : skyValue === '3'
-    //   ? (listIdx = '2')
-    //   : skyValue === '4'
-    //   ? (listIdx = '3')
-    //   : '오류';
+    if (sky.length > 0) {
+      let skyValue = sky[0].fcstValue;
+      console.log(skyValue);
+      skyValue === '1'
+        ? (listIdx = '1')
+        : skyValue === '3'
+        ? (listIdx = '2')
+        : skyValue === '4'
+        ? (listIdx = '3')
+        : (listIdx = '오류');
+    }
     return listIdx;
   };
 
   useEffect(() => setIndex(weatherImg()), [sky]);
+  console.log(index);
 
   return (
     <div className='App'>
