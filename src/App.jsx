@@ -1,12 +1,17 @@
-/* eslint-disable */
-
-import { Button } from '@mui/material';
-import Card from '@mui/material/Card';
+/** @jsxImportSource @emotion/react */
 import Lottie from './components/Lottie';
 import { getXY } from './functions/getXY';
 import { useEffect, useState } from 'react';
 import { weatherApiUrl as data } from './constants/weatherApiUrl';
 import { rainTypeFn } from './constants/rainTypeFn';
+import { css } from '@emotion/react';
+
+const logoStyle = css`
+  display: flex;
+  justify-content: center;
+  background: pink;
+  height: 300px;
+`;
 
 function App() {
   const [weather, setWeather] = useState([]);
@@ -60,36 +65,29 @@ function App() {
   }, [weather]);
 
   const weatherImg = () => {
-    let listIdx = '1';
+    let listIdx = '';
     if (sky.length > 0) {
       let skyValue = sky[0].fcstValue;
-      console.log(skyValue);
-      skyValue === '1'
-        ? (listIdx = '1')
-        : skyValue === '3'
-        ? (listIdx = '2')
-        : skyValue === '4'
-        ? (listIdx = '3')
-        : (listIdx = '오류');
+      skyValue === '1' ? (listIdx = '1') : skyValue === '3' ? (listIdx = '3') : skyValue === '4' ? (listIdx = '4') : (listIdx = '오류');
     }
     return listIdx;
   };
 
-  useEffect(() => setIndex(weatherImg()), [sky]);
-  console.log(index);
+  useEffect(() => {
+    setIndex(weatherImg());
+  }, [sky]);
 
   return (
     <div className='App'>
-      <Lottie listIdx='0' />
-
-      {/* 객체는 직접 브라우저에 출력할 수 없음 */}
+      <div css={logoStyle}>
+        <Lottie listIdx='1' />
+        <Lottie listIdx='2' />
+        <Lottie listIdx='3' />
+        <Lottie listIdx='4' />
+        <Lottie listIdx='5' />
+      </div>
       <article>
-        <div>
-          <Card variant='outlined'>
-            <Lottie listIdx={index} />
-          </Card>
-        </div>
-
+        <img src={`${index}.gif`} />
         <div>
           <p>기온</p>
           {temp.map((data, i) => {
@@ -97,17 +95,7 @@ function App() {
           })}
           <p>날씨</p>
           {sky.map((data, i) => {
-            return (
-              <span key={i}>
-                {data.fcstValue === '1'
-                  ? '맑음'
-                  : data.fcstValue === '3'
-                  ? '구름많음'
-                  : data.fcstValue === '4'
-                  ? '흐림'
-                  : '오류'}
-              </span>
-            );
+            return <span key={i}>{data.fcstValue === '1' ? '맑음' : data.fcstValue === '3' ? '구름많음' : data.fcstValue === '4' ? '흐림' : '오류'}</span>;
           })}
           <p>습도</p>
           {humid.map((data, i) => {
@@ -119,11 +107,7 @@ function App() {
           })}
           <p>1시간 강수량</p>
           {rainAmount.map((data, i) => {
-            return (
-              <span key={i}>
-                {data.fcstValue === '강수없음' ? '0' : data.fcstValue}mm
-              </span>
-            );
+            return <span key={i}>{data.fcstValue === '강수없음' ? '0' : data.fcstValue}mm</span>;
           })}
         </div>
       </article>
