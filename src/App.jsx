@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 /* eslint-disable */
 import Lottie from './components/Lottie';
+import { Global, css } from '@emotion/react';
 import { getXY } from './functions/getXY';
 import { useEffect, useState } from 'react';
 import { weatherApiUrl as data, dayOfWeek } from './constants/weatherApiUrl';
@@ -80,24 +81,11 @@ function App() {
     let listIdx = '0';
     if (sky.length > 0) {
       let skyValue = sky[idx].fcstValue;
-      skyValue === '1'
-        ? (listIdx = '1')
-        : skyValue === '3'
-        ? (listIdx = '3')
-        : skyValue === '4'
-        ? (listIdx = '4')
-        : (listIdx = '0');
+      skyValue === '1' ? (listIdx = '1') : skyValue === '3' ? (listIdx = '3') : skyValue === '4' ? (listIdx = '4') : (listIdx = '0');
     }
     if (rainType.length > 0) {
       let rainTypeValue = rainType[idx].fcstValue;
-      rainTypeValue === '1' ||
-      rainTypeValue === '2' ||
-      rainTypeValue === '5' ||
-      rainTypeValue === '6'
-        ? (listIdx = '6')
-        : rainTypeValue === '3' || rainTypeValue === '7'
-        ? (listIdx = '7')
-        : null;
+      rainTypeValue === '1' || rainTypeValue === '2' || rainTypeValue === '5' || rainTypeValue === '6' ? (listIdx = '6') : rainTypeValue === '3' || rainTypeValue === '7' ? (listIdx = '7') : null;
     }
     return listIdx;
   };
@@ -105,6 +93,14 @@ function App() {
 
   return (
     <>
+      <Global
+        styles={css`
+          body {
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      />
       <header css={logoStyle}>
         <div style={{ display: 'flex', width: '70vw' }}>
           <Lottie listIdx='1' />
@@ -116,30 +112,13 @@ function App() {
       </header>
       <main>
         <article>
-          <header css={dateStyle}>
-            {temp.length > 0
-              ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(
-                  4,
-                  6
-                )}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})`
-              : null}
-          </header>
+          <header css={dateStyle}>{temp.length > 0 ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(4, 6)}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})` : null}</header>
           <section id='weather-now'>
             <div css={divBig}>
               {sky.length > 0 && rainType.length > 0 ? (
-                <img
-                  css={imgStyle}
-                  src={
-                    process.env.PUBLIC_URL + `/${getWeatherImageName(0)}.gif`
-                  }
-                  alt='날씨'
-                />
+                <img css={imgStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(0)}.gif`} alt='날씨' />
               ) : (
-                <img
-                  css={imgStyle}
-                  src={process.env.PUBLIC_URL + `0.gif`}
-                  alt='날씨'
-                />
+                <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
               )}
               <span css={tempSizeStyle}>
                 {temp.length > 0 ? temp[0].fcstValue : null}
@@ -158,11 +137,7 @@ function App() {
                 강수량
               </span>
               <span css={divSmallSpanOne}>
-                {rainAmount.length > 0
-                  ? rainAmount[0].fcstValue === '강수없음'
-                    ? '0'
-                    : rainAmount[0].fcstValue
-                  : null}
+                {rainAmount.length > 0 ? (rainAmount[0].fcstValue === '강수없음' ? '0' : rainAmount[0].fcstValue) : null}
                 <span css={divSmallSpanTwo} style={{ marginLeft: '10px' }}>
                   mm
                 </span>
@@ -175,38 +150,20 @@ function App() {
                   return (
                     <div css={forecastCardDiv} key={i}>
                       <span>{`${temp[idx].fcstTime}`.slice(0, 2)}시</span>
-                      <img
-                        css={imgCardStyle}
-                        src={
-                          process.env.PUBLIC_URL +
-                          `/${getWeatherImageName(idx)}.gif`
-                        }
-                        alt='날씨'
-                      />
+                      <img css={imgCardStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(idx)}.gif`} alt='날씨' />
                       <span>{`${temp[idx].fcstValue}`}℃</span>
                     </div>
                   );
                 })
               : weatherImgArr.map((idx, i) => {
-                  return (
-                    <img
-                      key={i}
-                      css={imgStyle}
-                      src={process.env.PUBLIC_URL + `0.gif`}
-                      alt='날씨'
-                    />
-                  );
+                  return <img key={i} css={imgCardStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />;
                 })}
           </section>
         </article>
       </main>
       <footer css={footerStyle}>
         © 2023 Gaebal-Saebal
-        <a
-          css={footerLinkStyle}
-          href='https://github.com/gaebal-saebal'
-          target='_blank'
-        >
+        <a css={footerLinkStyle} href='https://github.com/gaebal-saebal' target='_blank'>
           {'<https://github.com/gaebal-saebal>'}
         </a>
       </footer>
