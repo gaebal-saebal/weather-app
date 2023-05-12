@@ -173,10 +173,9 @@ function App() {
           {temp.length > 0 && sky.length > 0 && rainType.length > 0
             ? weatherImgArr.map((idx, i) => {
                 return (
-                  <div>
-                    <span key={i}>{`${temp[idx].fcstTime}`.slice(0, 2)}시</span>
+                  <div key={i}>
+                    <span>{`${temp[idx].fcstTime}`.slice(0, 2)}시</span>
                     <img
-                      key={i}
                       css={imgStyle}
                       src={
                         process.env.PUBLIC_URL +
@@ -184,7 +183,7 @@ function App() {
                       }
                       alt='날씨'
                     />
-                    <span key={i}>{`${temp[idx].fcstValue}`}℃</span>
+                    <span>{`${temp[idx].fcstValue}`}℃</span>
                   </div>
                 );
               })
