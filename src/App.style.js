@@ -5,6 +5,7 @@ import { css } from '@emotion/react';
 const logoStyle = css`
   display: flex;
   justify-content: center;
+  align-items: center;
   background: pink;
   height: 300px;
 `;
@@ -55,13 +56,32 @@ const divSmallSpanTwo = css`
   height: 50px;
 `;
 
-export {
-  logoStyle,
-  dateStyle,
-  imgStyle,
-  tempSizeStyle,
-  divBig,
-  tempSmallStyle,
-  divSmallSpanOne,
-  divSmallSpanTwo,
-};
+const footerStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 30px;
+  font-size: 12px;
+`;
+
+const footerLinkStyle = css`
+  margin-left: 6px;
+  text-decoration: none;
+  color: black;
+  :link {
+    text-decoration: none;
+    color: black;
+  }
+  :visited {
+    text-decoration: none;
+    color: black;
+  }
+  :active {
+    text-decoration: none;
+    color: black;
+  }
+`;
+
+export { logoStyle, dateStyle, imgStyle, tempSizeStyle, divBig, tempSmallStyle, divSmallSpanOne, divSmallSpanTwo, footerStyle, footerLinkStyle };

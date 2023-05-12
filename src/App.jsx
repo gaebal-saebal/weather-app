@@ -5,16 +5,7 @@ import { getXY } from './functions/getXY';
 import { useEffect, useState } from 'react';
 import { weatherApiUrl as data, dayOfWeek } from './constants/weatherApiUrl';
 import { rainTypeFn } from './constants/rainTypeFn';
-import {
-  logoStyle,
-  dateStyle,
-  imgStyle,
-  tempSizeStyle,
-  divBig,
-  tempSmallStyle,
-  divSmallSpanOne,
-  divSmallSpanTwo,
-} from './App.style';
+import { logoStyle, dateStyle, imgStyle, tempSizeStyle, divBig, tempSmallStyle, divSmallSpanOne, divSmallSpanTwo, footerStyle, footerLinkStyle } from './App.style';
 
 function App() {
   const [weather, setWeather] = useState([]);
@@ -67,68 +58,41 @@ function App() {
     getWeatherDataArr(setRainAmount, 'RN1');
   }, [weather]);
 
-  const weatherImg = () => {
+  const weatherImg = (idx) => {
     let listIdx = '0';
     if (sky.length > 0) {
-      let skyValue = sky[0].fcstValue;
-      skyValue === '1'
-        ? (listIdx = '1')
-        : skyValue === '3'
-        ? (listIdx = '3')
-        : skyValue === '4'
-        ? (listIdx = '4')
-        : (listIdx = '오류');
+      let skyValue = sky[idx].fcstValue;
+      skyValue === '1' ? (listIdx = '1') : skyValue === '3' ? (listIdx = '3') : skyValue === '4' ? (listIdx = '4') : (listIdx = '오류');
     }
     if (rainType.length > 0) {
-      let rainTypeValue = rainType[0].fcstValue;
-      rainTypeValue === '1' ||
-      rainTypeValue === '2' ||
-      rainTypeValue === '5' ||
-      rainTypeValue === '6'
-        ? (listIdx = '6')
-        : rainTypeValue === '3' || rainTypeValue === '7'
-        ? (listIdx = '7')
-        : null;
+      let rainTypeValue = rainType[idx].fcstValue;
+      rainTypeValue === '1' || rainTypeValue === '2' || rainTypeValue === '5' || rainTypeValue === '6' ? (listIdx = '6') : rainTypeValue === '3' || rainTypeValue === '7' ? (listIdx = '7') : null;
     }
-    console.log(listIdx);
     return listIdx;
   };
 
   useEffect(() => {
-    setIndex(weatherImg());
+    setIndex(weatherImg(0));
   }, [sky]);
 
-  console.log(weather);
-  console.log(temp);
-  console.log(humid);
-
   return (
-    <div className='App'>
-      <div css={logoStyle}>
-        <Lottie listIdx='1' />
-        <Lottie listIdx='2' />
-        <Lottie listIdx='3' />
-        <Lottie listIdx='4' />
-        <Lottie listIdx='5' />
-      </div>
+    <>
+      <header css={logoStyle}>
+        <div style={{ display: 'flex', width: '70vw' }}>
+          <Lottie listIdx='1' />
+          <Lottie listIdx='2' />
+          <Lottie listIdx='3' />
+          <Lottie listIdx='4' />
+          <Lottie listIdx='5' />
+        </div>
+      </header>
       <main>
         {/* TODO : 현재날씨이미지, 현재기온, 현재습도, 강수량 = 카드처럼! */}
         <article>
-          <header css={dateStyle}>
-            {temp.length > 0
-              ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(
-                  4,
-                  6
-                )}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})`
-              : null}
-          </header>
+          <header css={dateStyle}>{temp.length > 0 ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(4, 6)}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})` : null}</header>
           <section>
             <div css={divBig}>
-              <img
-                css={imgStyle}
-                src={process.env.PUBLIC_URL + `/${index}.gif`}
-                alt='날씨'
-              />
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `/${index}.gif`} alt='날씨' />
               <span css={tempSizeStyle}>
                 {temp.length > 0 ? temp[0].fcstValue : null}
                 <span css={tempSmallStyle}>℃</span>
@@ -146,11 +110,7 @@ function App() {
                 강수량
               </span>
               <span css={divSmallSpanOne}>
-                {rainAmount.length > 0
-                  ? rainAmount[0].fcstValue === '강수없음'
-                    ? '0'
-                    : rainAmount[0].fcstValue
-                  : null}
+                {rainAmount.length > 0 ? (rainAmount[0].fcstValue === '강수없음' ? '0' : rainAmount[0].fcstValue) : null}
                 <span css={divSmallSpanTwo} style={{ marginLeft: '10px' }}>
                   mm
                 </span>
@@ -160,43 +120,27 @@ function App() {
         </article>
         {/* //TODO : 날씨 이미지 6개 쭉 나오고 기온이랑, 시간 나오도록! */}
         <div>
-          <p>기온</p>
-          {temp.map((data, i) => {
-            return <span key={i}>{data.fcstValue}℃</span>;
-          })}
-          <p>날씨</p>
-          {sky.map((data, i) => {
-            return (
-              <span key={i}>
-                {data.fcstValue === '1'
-                  ? '맑음'
-                  : data.fcstValue === '3'
-                  ? '구름많음'
-                  : data.fcstValue === '4'
-                  ? '흐림'
-                  : '오류'}
-              </span>
-            );
-          })}
-          <p>습도</p>
-          {humid.map((data, i) => {
-            return <span key={i}>{data.fcstValue}%</span>;
-          })}
-          <p>강수형태</p>
-          {rainType.map((data, i) => {
-            return <span key={i}>{rainTypeFn(data.fcstValue)}</span>;
-          })}
-          <p>1시간 강수량</p>
-          {rainAmount.map((data, i) => {
-            return (
-              <span key={i}>
-                {data.fcstValue === '강수없음' ? '0' : data.fcstValue}mm
-              </span>
-            );
-          })}
+          <p>
+            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[0].fcstValue)}.gif`} alt='날씨' /> : null}
+            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[1].fcstValue)}.gif`} alt='날씨' /> : null}
+            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[2].fcstValue)}.gif`} alt='날씨' /> : null}
+            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[3].fcstValue)}.gif`} alt='날씨' /> : null}
+            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[4].fcstValue)}.gif`} alt='날씨' /> : null}
+            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[5].fcstValue)}.gif`} alt='날씨' /> : null}
+
+            {sky.map((data, i) => {
+              return <span key={i}>{data.fcstValue}</span>;
+            })}
+          </p>
         </div>
       </main>
-    </div>
+      <footer css={footerStyle}>
+        © 2023 Gaebal-Saebal
+        <a css={footerLinkStyle} href='https://github.com/gaebal-saebal'>
+          {'<https://github.com/gaebal-saebal>'}
+        </a>
+      </footer>
+    </>
   );
 }
 
