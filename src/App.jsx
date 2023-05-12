@@ -98,6 +98,7 @@ function App() {
     }
     return listIdx;
   };
+  console.log(temp);
 
   return (
     <>
@@ -170,6 +171,13 @@ function App() {
         {/* //TODO : 날씨 이미지 6개 쭉 나오고 기온이랑, 시간 나오도록! */}
         <div>
           <p>
+            {weatherImgArr.map((idx, i) => {
+              return (
+                <span key={i}>{`${temp[idx].fcstTime}`.slice(0, 2)}시</span>
+              );
+            })}
+          </p>
+          <p>
             {sky.length > 0 && rainType.length > 0
               ? weatherImgArr.map((idx, i) => {
                   return (
@@ -194,6 +202,11 @@ function App() {
                     />
                   );
                 })}
+          </p>
+          <p>
+            {weatherImgArr.map((idx, i) => {
+              return <span key={i}>{`${temp[idx].fcstValue}`}℃</span>;
+            })}
           </p>
         </div>
       </main>
