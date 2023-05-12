@@ -21,6 +21,12 @@ const imgStyle = css`
   height: 150px;
 `;
 
+const imgCardStyle = css`
+  width: 80px;
+  height: 80px;
+  margin: 10px 0px;
+`;
+
 const tempSizeStyle = css`
   display: flex;
   align-items: center;
@@ -48,12 +54,35 @@ const divSmallSpanOne = css`
   color: pink;
   width: 75px;
   height: 50px;
+  font-weight: 500;
 `;
 
 const divSmallSpanTwo = css`
   color: black;
   width: 75px;
   height: 50px;
+  font-weight: 500;
+`;
+
+const forecastSection = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  div:first-child {
+    margin-left: 0px;
+    background: pink;
+  }
+`;
+
+const forecastCardDiv = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 180px;
+  margin-left: 10px;
 `;
 
 const footerStyle = css`
@@ -84,4 +113,18 @@ const footerLinkStyle = css`
   }
 `;
 
-export { logoStyle, dateStyle, imgStyle, tempSizeStyle, divBig, tempSmallStyle, divSmallSpanOne, divSmallSpanTwo, footerStyle, footerLinkStyle };
+export {
+  logoStyle,
+  dateStyle,
+  imgStyle,
+  tempSizeStyle,
+  divBig,
+  tempSmallStyle,
+  divSmallSpanOne,
+  divSmallSpanTwo,
+  forecastSection,
+  forecastCardDiv,
+  footerStyle,
+  footerLinkStyle,
+  imgCardStyle,
+};
