@@ -6,6 +6,9 @@ let day = ('0' + today.getDate()).slice(-2);
 let hours = ('0' + today.getHours()).slice(-2) - 1;
 let minutes = ('0' + today.getMinutes()).slice(-2);
 
+const week = ['일', '월', '화', '수', '목', '금', '토'];
+export let dayOfWeek = week[today.getDay()];
+
 export const weatherApiUrl = {
   //env 파일 변경 시 npm run start 재시동 해야 적용됩니다
   serviceKey: process.env.REACT_APP_SERVICEKEY,
