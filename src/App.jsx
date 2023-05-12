@@ -5,7 +5,7 @@ import { Global, css } from '@emotion/react';
 import { getXY } from './functions/getXY';
 import { useEffect, useState } from 'react';
 import { weatherApiUrl as data, dayOfWeek } from './constants/weatherApiUrl';
-import { rainTypeFn } from './constants/rainTypeFn';
+import { rainTypeFn } from './functions/rainTypeFn';
 import {
   logoStyle,
   dateStyle,
