@@ -71,9 +71,14 @@ const forecastSection = css`
   align-items: center;
   justify-content: center;
   height: 250px;
-  div:first-child {
+  div:first-of-type {
     margin-left: 0px;
     background: pink;
+  }
+  @media screen and (max-width: 580px) {
+    div:nth-of-type(n + 5) {
+      display: none;
+    }
   }
 `;
 

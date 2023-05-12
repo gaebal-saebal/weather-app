@@ -89,7 +89,6 @@ function App() {
     }
     return listIdx;
   };
-  console.log(temp);
 
   return (
     <>
