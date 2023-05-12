@@ -102,7 +102,7 @@ function App() {
         `}
       />
       <header css={logoStyle}>
-        <div style={{ display: 'flex', width: '70vw' }}>
+        <div style={{ display: 'flex', width: '70vw', maxWidth: '840px' }}>
           <Lottie listIdx='1' />
           <Lottie listIdx='2' />
           <Lottie listIdx='3' />

@@ -15,6 +15,8 @@ const dateStyle = css`
   justify-content: center;
   align-items: center;
   height: 40px;
+  margin-top: 30px;
+  font-size: 20px;
 `;
 
 const imgStyle = css`
@@ -113,18 +115,4 @@ const footerLinkStyle = css`
   }
 `;
 
-export {
-  logoStyle,
-  dateStyle,
-  imgStyle,
-  tempSizeStyle,
-  divBig,
-  tempSmallStyle,
-  divSmallSpanOne,
-  divSmallSpanTwo,
-  forecastSection,
-  forecastCardDiv,
-  footerStyle,
-  footerLinkStyle,
-  imgCardStyle,
-};
+export { logoStyle, dateStyle, imgStyle, tempSizeStyle, divBig, tempSmallStyle, divSmallSpanOne, divSmallSpanTwo, forecastSection, forecastCardDiv, footerStyle, footerLinkStyle, imgCardStyle };
