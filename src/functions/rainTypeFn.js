@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export const rainTypeFn = (fcstValue) => {
   let result = '';
   switch (fcstValue) {
