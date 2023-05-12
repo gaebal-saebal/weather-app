@@ -14,6 +14,9 @@
 
 ## LINKS
 
-[Figma](https://www.figma.com/file/Mo2lJEbnfqOHu8N1Ts4Yxi/weatherapp?type=design&node-id=0%3A1&t=o4xtkE9CIzVluIcg-1){:target="\_blank"}
-
+<a href="https://www.figma.com/file/Mo2lJEbnfqOHu8N1Ts4Yxi/weatherapp?type=design&node-id=0%3A1&t=o4xtkE9CIzVluIcg-1/" target="_blank">Figma</a>
 ---
+
+
+
+![스크린샷 2023-05-12 오후 5 25 26](https://github.com/gaebal-saebal/weather-app/assets/103746767/c1761f9b-debf-4360-9897-b51b0ca01691)
