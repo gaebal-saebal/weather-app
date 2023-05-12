@@ -15,8 +15,6 @@ function App() {
   const [rainType, setRainType] = useState([]);
   const [rainAmount, setRainAmount] = useState([]);
 
-  const [index, setIndex] = useState('1');
-
   const getWeather = () => {
     try {
       navigator.geolocation.getCurrentPosition(async function (pos) {
@@ -58,11 +56,15 @@ function App() {
     getWeatherDataArr(setRainAmount, 'RN1');
   }, [weather]);
 
-  const weatherImg = (idx) => {
+  //sky랑 raintype의 fcstValue 값을 참조해서 날씨 그림의 파일 이름을 가져오는 함수
+  //sky raintype은 각각 날씨와 강수타입을 나타내는 배열(index는 0부터 6까지, 0은 현재, 1시간 간격으로 6까지)
+  //idx : 몇 시간 뒤의 '시간'
+  //listidx : 해당 시간 뒤의 날씨 그림 '파일 이름'
+  const getWeatherImageName = (idx) => {
     let listIdx = '0';
     if (sky.length > 0) {
       let skyValue = sky[idx].fcstValue;
-      skyValue === '1' ? (listIdx = '1') : skyValue === '3' ? (listIdx = '3') : skyValue === '4' ? (listIdx = '4') : (listIdx = '오류');
+      skyValue === '1' ? (listIdx = '1') : skyValue === '3' ? (listIdx = '3') : skyValue === '4' ? (listIdx = '4') : (listIdx = '0');
     }
     if (rainType.length > 0) {
       let rainTypeValue = rainType[idx].fcstValue;
@@ -70,10 +72,6 @@ function App() {
     }
     return listIdx;
   };
-
-  useEffect(() => {
-    setIndex(weatherImg(0));
-  }, [sky]);
 
   return (
     <>
@@ -92,7 +90,11 @@ function App() {
           <header css={dateStyle}>{temp.length > 0 ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(4, 6)}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})` : null}</header>
           <section>
             <div css={divBig}>
-              <img css={imgStyle} src={process.env.PUBLIC_URL + `/${index}.gif`} alt='날씨' />
+              {sky.length > 0 && rainType.length > 0 ? (
+                <img css={imgStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(0)}.gif`} alt='날씨' />
+              ) : (
+                <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
+              )}
               <span css={tempSizeStyle}>
                 {temp.length > 0 ? temp[0].fcstValue : null}
                 <span css={tempSmallStyle}>℃</span>
@@ -121,12 +123,36 @@ function App() {
         {/* //TODO : 날씨 이미지 6개 쭉 나오고 기온이랑, 시간 나오도록! */}
         <div>
           <p>
-            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[0].fcstValue)}.gif`} alt='날씨' /> : null}
-            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[1].fcstValue)}.gif`} alt='날씨' /> : null}
-            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[2].fcstValue)}.gif`} alt='날씨' /> : null}
-            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[3].fcstValue)}.gif`} alt='날씨' /> : null}
-            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[4].fcstValue)}.gif`} alt='날씨' /> : null}
-            {sky.length > 0 ? <img css={imgStyle} src={process.env.PUBLIC_URL + `/${weatherImg(sky[5].fcstValue)}.gif`} alt='날씨' /> : null}
+            {sky.length > 0 && rainType.length > 0 ? (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(0)}.gif`} alt='날씨' />
+            ) : (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
+            )}
+            {sky.length > 0 && rainType.length > 0 ? (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(1)}.gif`} alt='날씨' />
+            ) : (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
+            )}
+            {sky.length > 0 && rainType.length > 0 ? (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(2)}.gif`} alt='날씨' />
+            ) : (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
+            )}
+            {sky.length > 0 && rainType.length > 0 ? (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(3)}.gif`} alt='날씨' />
+            ) : (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
+            )}
+            {sky.length > 0 && rainType.length > 0 ? (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(4)}.gif`} alt='날씨' />
+            ) : (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
+            )}
+            {sky.length > 0 && rainType.length > 0 ? (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(5)}.gif`} alt='날씨' />
+            ) : (
+              <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
+            )}
 
             {sky.map((data, i) => {
               return <span key={i}>{data.fcstValue}</span>;
