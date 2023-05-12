@@ -3,9 +3,18 @@
 import Lottie from './components/Lottie';
 import { getXY } from './functions/getXY';
 import { useEffect, useState } from 'react';
-import { weatherApiUrl as data } from './constants/weatherApiUrl';
+import { weatherApiUrl as data, dayOfWeek } from './constants/weatherApiUrl';
 import { rainTypeFn } from './constants/rainTypeFn';
-import { logoStyle } from './App.style';
+import {
+  logoStyle,
+  dateStyle,
+  imgStyle,
+  tempSizeStyle,
+  divBig,
+  tempSmallStyle,
+  divSmallSpanOne,
+  divSmallSpanTwo,
+} from './App.style';
 
 function App() {
   const [weather, setWeather] = useState([]);
@@ -62,11 +71,24 @@ function App() {
     let listIdx = '0';
     if (sky.length > 0) {
       let skyValue = sky[0].fcstValue;
-      skyValue === '1' ? (listIdx = '1') : skyValue === '3' ? (listIdx = '3') : skyValue === '4' ? (listIdx = '4') : (listIdx = '오류');
+      skyValue === '1'
+        ? (listIdx = '1')
+        : skyValue === '3'
+        ? (listIdx = '3')
+        : skyValue === '4'
+        ? (listIdx = '4')
+        : (listIdx = '오류');
     }
     if (rainType.length > 0) {
       let rainTypeValue = rainType[0].fcstValue;
-      rainTypeValue === '1' || rainTypeValue === '2' || rainTypeValue === '5' || rainTypeValue === '6' ? (listIdx = '6') : rainTypeValue === '3' || rainTypeValue === '7' ? (listIdx = '7') : null;
+      rainTypeValue === '1' ||
+      rainTypeValue === '2' ||
+      rainTypeValue === '5' ||
+      rainTypeValue === '6'
+        ? (listIdx = '6')
+        : rainTypeValue === '3' || rainTypeValue === '7'
+        ? (listIdx = '7')
+        : null;
     }
     console.log(listIdx);
     return listIdx;
@@ -75,6 +97,10 @@ function App() {
   useEffect(() => {
     setIndex(weatherImg());
   }, [sky]);
+
+  console.log(weather);
+  console.log(temp);
+  console.log(humid);
 
   return (
     <div className='App'>
@@ -85,19 +111,53 @@ function App() {
         <Lottie listIdx='4' />
         <Lottie listIdx='5' />
       </div>
-      <article>
+      <main>
         {/* TODO : 현재날씨이미지, 현재기온, 현재습도, 강수량 = 카드처럼! */}
-        <div>
-          <div>날짜</div>
-          <div>
-            <img src={process.env.PUBLIC_URL + `/${index}.gif`} alt='날씨' />
-            <span>기온</span>
-          </div>
-          <div>
-            <span>습도</span>
-            <span>강수량</span>
-          </div>
-        </div>
+        <article>
+          <header css={dateStyle}>
+            {temp.length > 0
+              ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(
+                  4,
+                  6
+                )}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})`
+              : null}
+          </header>
+          <section>
+            <div css={divBig}>
+              <img
+                css={imgStyle}
+                src={process.env.PUBLIC_URL + `/${index}.gif`}
+                alt='날씨'
+              />
+              <span css={tempSizeStyle}>
+                {temp.length > 0 ? temp[0].fcstValue : null}
+                <span css={tempSmallStyle}>℃</span>
+              </span>
+            </div>
+            <div css={divBig}>
+              <span css={divSmallSpanTwo}>습도</span>
+              <span css={divSmallSpanOne}>
+                {humid.length > 0 ? humid[0].fcstValue : null}
+                <span css={divSmallSpanTwo} style={{ marginLeft: '10px' }}>
+                  %
+                </span>
+              </span>
+              <span css={divSmallSpanTwo} style={{ marginLeft: '25px' }}>
+                강수량
+              </span>
+              <span css={divSmallSpanOne}>
+                {rainAmount.length > 0
+                  ? rainAmount[0].fcstValue === '강수없음'
+                    ? '0'
+                    : rainAmount[0].fcstValue
+                  : null}
+                <span css={divSmallSpanTwo} style={{ marginLeft: '10px' }}>
+                  mm
+                </span>
+              </span>
+            </div>
+          </section>
+        </article>
         {/* //TODO : 날씨 이미지 6개 쭉 나오고 기온이랑, 시간 나오도록! */}
         <div>
           <p>기온</p>
@@ -106,7 +166,17 @@ function App() {
           })}
           <p>날씨</p>
           {sky.map((data, i) => {
-            return <span key={i}>{data.fcstValue === '1' ? '맑음' : data.fcstValue === '3' ? '구름많음' : data.fcstValue === '4' ? '흐림' : '오류'}</span>;
+            return (
+              <span key={i}>
+                {data.fcstValue === '1'
+                  ? '맑음'
+                  : data.fcstValue === '3'
+                  ? '구름많음'
+                  : data.fcstValue === '4'
+                  ? '흐림'
+                  : '오류'}
+              </span>
+            );
           })}
           <p>습도</p>
           {humid.map((data, i) => {
@@ -118,10 +188,14 @@ function App() {
           })}
           <p>1시간 강수량</p>
           {rainAmount.map((data, i) => {
-            return <span key={i}>{data.fcstValue === '강수없음' ? '0' : data.fcstValue}mm</span>;
+            return (
+              <span key={i}>
+                {data.fcstValue === '강수없음' ? '0' : data.fcstValue}mm
+              </span>
+            );
           })}
         </div>
-      </article>
+      </main>
     </div>
   );
 }
