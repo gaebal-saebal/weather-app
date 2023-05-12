@@ -170,19 +170,11 @@ function App() {
         </article>
         {/* //TODO : 날씨 이미지 6개 쭉 나오고 기온이랑, 시간 나오도록! */}
         <div>
-          <p>
-            {temp.length > 0
-              ? weatherImgArr.map((idx, i) => {
-                  return (
+          {temp.length > 0 && sky.length > 0 && rainType.length > 0
+            ? weatherImgArr.map((idx, i) => {
+                return (
+                  <div>
                     <span key={i}>{`${temp[idx].fcstTime}`.slice(0, 2)}시</span>
-                  );
-                })
-              : null}
-          </p>
-          <p>
-            {sky.length > 0 && rainType.length > 0
-              ? weatherImgArr.map((idx, i) => {
-                  return (
                     <img
                       key={i}
                       css={imgStyle}
@@ -192,26 +184,20 @@ function App() {
                       }
                       alt='날씨'
                     />
-                  );
-                })
-              : weatherImgArr.map((idx, i) => {
-                  return (
-                    <img
-                      key={i}
-                      css={imgStyle}
-                      src={process.env.PUBLIC_URL + `0.gif`}
-                      alt='날씨'
-                    />
-                  );
-                })}
-          </p>
-          <p>
-            {temp.length > 0
-              ? weatherImgArr.map((idx, i) => {
-                  return <span key={i}>{`${temp[idx].fcstValue}`}℃</span>;
-                })
-              : null}
-          </p>
+                    <span key={i}>{`${temp[idx].fcstValue}`}℃</span>
+                  </div>
+                );
+              })
+            : weatherImgArr.map((idx, i) => {
+                return (
+                  <img
+                    key={i}
+                    css={imgStyle}
+                    src={process.env.PUBLIC_URL + `0.gif`}
+                    alt='날씨'
+                  />
+                );
+              })}
         </div>
       </main>
       <footer css={footerStyle}>
