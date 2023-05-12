@@ -136,7 +136,7 @@ function App() {
       </main>
       <footer css={footerStyle}>
         © 2023 Gaebal-Saebal
-        <a css={footerLinkStyle} href='https://github.com/gaebal-saebal'>
+        <a css={footerLinkStyle} href='https://github.com/gaebal-saebal' target='_blank'>
           {'<https://github.com/gaebal-saebal>'}
         </a>
       </footer>
