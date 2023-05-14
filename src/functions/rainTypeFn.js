@@ -1,5 +1,6 @@
 /* eslint-disable */
 
+// raintype의 fcstValue(예보 코드)가 숫자 0,1,2,...로 나오는데 이걸 문자로 바꿔주는 함수
 export const rainTypeFn = (fcstValue) => {
   let result = '';
   switch (fcstValue) {
