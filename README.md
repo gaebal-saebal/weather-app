@@ -29,6 +29,7 @@
 > fix : 버그 수정  
 > docs : 문서 수정  
 > refactor : 코드 리펙토링  
+> design : 로직 변경 없이 디자인 수정  
 > chore : 그 외
 
 ## 구현 기능
