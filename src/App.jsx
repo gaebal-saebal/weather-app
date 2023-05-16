@@ -83,38 +83,18 @@ function App() {
     if (sky.length > 0) {
       // 조건문이 없으면 아직 값을 할당받지 못해 undefined인 'sky'에서 length를 찾으려 합니다. 그러면 오류가 나겠죠?
       let skyValue = sky[idx].fcstValue;
-      skyValue === '1'
-        ? (listIdx = '1')
-        : skyValue === '3'
-        ? (listIdx = '3')
-        : skyValue === '4'
-        ? (listIdx = '4')
-        : (listIdx = '0');
+      skyValue === '1' ? (listIdx = '1') : skyValue === '3' ? (listIdx = '3') : skyValue === '4' ? (listIdx = '4') : (listIdx = '0');
     } // sky에는 맑음, 구름많음, 흐림 3개 밖에 없으니 강수타입인 raintype도 확인해서 날씨그림을 결정합시다!
     if (rainType.length > 0) {
       let rainTypeValue = rainType[idx].fcstValue;
-      rainTypeValue === '1' ||
-      rainTypeValue === '2' ||
-      rainTypeValue === '5' ||
-      rainTypeValue === '6'
-        ? (listIdx = '6')
-        : rainTypeValue === '3' || rainTypeValue === '7'
-        ? (listIdx = '7')
-        : null;
+      rainTypeValue === '1' || rainTypeValue === '2' || rainTypeValue === '5' || rainTypeValue === '6' ? (listIdx = '6') : rainTypeValue === '3' || rainTypeValue === '7' ? (listIdx = '7') : null;
     } // raintype.fcstValue가 1,2,5,6일때는 비오는 그림으로, 3,7일때는 눈오는 그림으로 변경합니다. 그 외의 경우엔 listidx를 변경하지 않을거에요.
     return listIdx;
-  };
-
-  // 모바일 100vh 이슈 해결 코드
-  const setScreenSize = () => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
 
   //일단 렌더링이 되면 data fetch로 날씨정보를 그대로 다 가져옵니다
   useEffect(() => {
     getWeather();
-    setScreenSize();
   }, []);
 
   //날씨정보를 가져오면, 온도, 날씨, 습도, 강수타입, 강수량만 각각 상태에 할당합니다
@@ -152,32 +132,15 @@ function App() {
       <main>
         <article>
           {/* 마찬가지로 조건문이 없으면 undefined에서 length를 찾으려 하기 때문에 오류가 납니다 */}
-          <header css={dateStyle}>
-            {temp.length > 0
-              ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(
-                  4,
-                  6
-                )}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})`
-              : null}
-          </header>
+          <header css={dateStyle}>{temp.length > 0 ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(4, 6)}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})` : null}</header>
           <section id='weather-now'>
             <div css={divBig}>
               {sky.length > 0 && rainType.length > 0 ? (
-                <img
-                  css={imgStyle}
-                  src={
-                    process.env.PUBLIC_URL + `/${getWeatherImageName(0)}.gif`
-                  }
-                  alt='날씨'
-                />
+                <img css={imgStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(0)}.gif`} alt='날씨' />
               ) : (
                 // sky와 raintype에 값이 할당되지 않았다는 것은, 아직 data fetch가 끝나지 않았다는 거겠죠?
                 // 그래서 sky와 raintype에 값이 할당될 때 까지 로딩중임을 표현하기 위해 0.gif을 보여줍니다.
-                <img
-                  css={imgStyle}
-                  src={process.env.PUBLIC_URL + `0.gif`}
-                  alt='날씨'
-                />
+                <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
               )}
               <span css={tempSizeStyle}>
                 {temp.length > 0 ? temp[0].fcstValue : null}
@@ -197,11 +160,7 @@ function App() {
               </span>
               <span css={divSmallSpanOne}>
                 {/* rainAmount(강수량)에서 비가 오지 않으면 강수량이 숫자 0이 아니고 '강수없음'으로 뜨기 때문에 '강수없음'의 경우 '0'으로 바꾸어줍니다 */}
-                {rainAmount.length > 0
-                  ? rainAmount[0].fcstValue === '강수없음'
-                    ? '0'
-                    : rainAmount[0].fcstValue
-                  : null}
+                {rainAmount.length > 0 ? (rainAmount[0].fcstValue === '강수없음' ? '0' : rainAmount[0].fcstValue) : null}
                 <span css={divSmallSpanTwo} style={{ marginLeft: '10px' }}>
                   mm
                 </span>
@@ -214,38 +173,20 @@ function App() {
                   return (
                     <div css={forecastCardDiv} key={i}>
                       <span>{`${temp[idx].fcstTime}`.slice(0, 2)}시</span>
-                      <img
-                        css={imgCardStyle}
-                        src={
-                          process.env.PUBLIC_URL +
-                          `/${getWeatherImageName(idx)}.gif`
-                        }
-                        alt='날씨'
-                      />
+                      <img css={imgCardStyle} src={process.env.PUBLIC_URL + `/${getWeatherImageName(idx)}.gif`} alt='날씨' />
                       <span>{`${temp[idx].fcstValue}`}℃</span>
                     </div>
                   );
                 })
               : weatherImgArr.map((idx, i) => {
-                  return (
-                    <img
-                      key={i}
-                      css={imgCardStyle}
-                      src={process.env.PUBLIC_URL + `0.gif`}
-                      alt='날씨'
-                    />
-                  );
+                  return <img key={i} css={imgCardStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />;
                 })}
           </section>
         </article>
       </main>
       <footer css={footerStyle}>
         © 2023 Gaebal-Saebal
-        <a
-          css={footerLinkStyle}
-          href='https://github.com/gaebal-saebal'
-          target='_blank'
-        >
+        <a css={footerLinkStyle} href='https://github.com/gaebal-saebal' target='_blank'>
           {'<https://github.com/gaebal-saebal>'}
         </a>
       </footer>
