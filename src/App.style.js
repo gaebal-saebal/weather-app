@@ -7,41 +7,41 @@ const logoStyle = css`
   justify-content: center;
   align-items: center;
   background: pink;
-  height: 300px;
+  height: calc(100vh / (900 / 300));
 `;
 
 const dateStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
-  margin-top: 30px;
+  height: calc(100vh / (900 / 40));
+  margin-top: calc(100vh / (900 / 30));
   font-size: 20px;
 `;
 
 const imgStyle = css`
-  height: 150px;
+  height: calc(100vh / (900 / 150));
 `;
 
 const imgCardStyle = css`
   width: 80px;
-  height: 80px;
-  margin: 10px 0px;
+  height: calc(100vh / (900 / 80));
+  margin: calc(100vh / (900 / 10)) 0px;
 `;
 
 const tempSizeStyle = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 70px;
+  font-size: 7vh;
   width: 200px;
-  height: 200px;
+  height: calc(100vh / (900 / 200));
   color: pink;
 `;
 
 const tempSmallStyle = css`
   color: black;
-  font-size: 50px;
+  font-size: 5vh;
   margin: 15px;
 `;
 
@@ -55,14 +55,14 @@ const divBig = css`
 const divSmallSpanOne = css`
   color: pink;
   width: 75px;
-  height: 50px;
+  height: calc(100vh / (900 / 50));
   font-weight: 500;
 `;
 
 const divSmallSpanTwo = css`
   color: black;
   width: 75px;
-  height: 50px;
+  height: calc(100vh / (900 / 50));
   font-weight: 500;
 `;
 
@@ -70,7 +70,7 @@ const forecastSection = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 250px;
+  height: calc(100vh / (900 / 250));
   div:first-of-type {
     margin-left: 0px;
     background: pink;
@@ -88,7 +88,7 @@ const forecastCardDiv = css`
   align-items: center;
   justify-content: center;
   width: 80px;
-  height: 180px;
+  height: calc(100vh / (900 / 180));
   margin-left: 10px;
 `;
 
@@ -96,9 +96,8 @@ const footerStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 100%;
-  height: 30px;
+  height: calc(100vh / (900 / 30));
   font-size: 12px;
 `;
 
@@ -120,4 +119,18 @@ const footerLinkStyle = css`
   }
 `;
 
-export { logoStyle, dateStyle, imgStyle, tempSizeStyle, divBig, tempSmallStyle, divSmallSpanOne, divSmallSpanTwo, forecastSection, forecastCardDiv, footerStyle, footerLinkStyle, imgCardStyle };
+export {
+  logoStyle,
+  dateStyle,
+  imgStyle,
+  tempSizeStyle,
+  divBig,
+  tempSmallStyle,
+  divSmallSpanOne,
+  divSmallSpanTwo,
+  forecastSection,
+  forecastCardDiv,
+  footerStyle,
+  footerLinkStyle,
+  imgCardStyle,
+};
