@@ -105,8 +105,17 @@ function App() {
     return listIdx;
   };
 
+  // 모바일 100vh 이슈 해결 코드
+  const setScreenSize = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
+
   //일단 렌더링이 되면 data fetch로 날씨정보를 그대로 다 가져옵니다
-  useEffect(() => getWeather(), []);
+  useEffect(() => {
+    getWeather();
+    setScreenSize();
+  }, []);
 
   //날씨정보를 가져오면, 온도, 날씨, 습도, 강수타입, 강수량만 각각 상태에 할당합니다
   useEffect(() => {
