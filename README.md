@@ -15,12 +15,14 @@
 <br>
 
 ## 사용 기술 스택
-| sort | stack |
-|---|---|
-| Language | <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"> |
-| Front-End Library | <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> |
-| Styling | <img src="https://img.shields.io/badge/Emotion-d26ac2?style=for-the-badge&logo=Emotion&logoColor=white"> |
-| UI Library | <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=MUI&logoColor=white"> |
+
+| sort              | stack                                                                                                          |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- |
+| Language          | <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"> |
+| Front-End Library | <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">           |
+| Styling           | <img src="https://img.shields.io/badge/Emotion-d26ac2?style=for-the-badge&logo=Emotion&logoColor=white">       |
+| UI Library        | <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=MUI&logoColor=white">               |
+
 <br>
 
 ## 커밋 컨벤션
@@ -38,12 +40,11 @@
 
 ## LINKS
 
-<a href="https://www.figma.com/file/Mo2lJEbnfqOHu8N1Ts4Yxi/weatherapp?type=design&node-id=0%3A1&t=o4xtkE9CIzVluIcg-1/" target="_blank">Figma</a>
-<br>
-<a href="#" target="_blank">Deployment</a>
+[Figma](https://www.figma.com/file/Mo2lJEbnfqOHu8N1Ts4Yxi/weatherapp?type=design&node-id=0%3A1&t=o4xtkE9CIzVluIcg-1/)
+
+[Deployment](https://weather-app-five-virid.vercel.app/)
 <br>
 
 ## 라이센스
+
 MIT &copy; [Rosenfence](mailto:rosenfence@gmail.com) / [JS-Ha](mailto:jshaha0911@gmail.com)
-
-
