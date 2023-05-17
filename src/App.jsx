@@ -46,7 +46,7 @@ function App() {
       data.nx = await getXY('toXY', latitude, longitude).x; // 자세한 getXY사용법은 getXY.js에서 확인
       data.ny = await getXY('toXY', latitude, longitude).y;
 
-      const URL = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${data.serviceKey}&numOfRows=${data.numOfRows}&pageNo=${data.pageNo}&dataType=${data.dataType}&base_date=${data.baseDate}&base_time=${data.baseTime}&nx=${data.nx}&ny=${data.ny}`;
+      const URL = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${data.serviceKey}&numOfRows=${data.numOfRows}&pageNo=${data.pageNo}&dataType=${data.dataType}&base_date=${data.baseDate}&base_time=${data.baseTime}&nx=${data.nx}&ny=${data.ny}`;
       await fetch(URL, {
         headers: {
           Accept: 'application/json',
