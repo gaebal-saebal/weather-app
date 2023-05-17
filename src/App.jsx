@@ -30,8 +30,11 @@ function App() {
   const [humid, setHumid] = useState([]);
   const [rainType, setRainType] = useState([]);
   const [rainAmount, setRainAmount] = useState([]);
+  const [currentLocation, setCurrentLocation] = useState('');
 
   const weatherImgArr = [0, 1, 2, 3, 4, 5];
+
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 
   const getWeather = () => {
     try {
@@ -47,7 +50,7 @@ function App() {
         const URL = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${data.serviceKey}&numOfRows=${data.numOfRows}&pageNo=${data.pageNo}&dataType=${data.dataType}&base_date=${data.baseDate}&base_time=${data.baseTime}&nx=${data.nx}&ny=${data.ny}`;
         fetch(URL, {
           headers: {
-            Accept: 'application/ json',
+            Accept: 'application/json',
           },
           method: 'GET',
         })
@@ -55,7 +58,6 @@ function App() {
           .then((res) => res.json())
           // 변환된 'data'에서 화면에 출력할 데이터만 가져옵니다
           .then((data) => {
-            console.log(data);
             const weatherData = data.response.body.items.item;
             setWeather(weatherData);
           })
@@ -66,6 +68,21 @@ function App() {
     } catch (err) {
       alert('위치정보를 가져올 수 없어요.');
     }
+  };
+
+  const getLocation = () => {
+    navigator.geolocation.getCurrentPosition(async function (pos) {
+      let longitude = pos.coords.longitude; // 경도
+      let latitude = pos.coords.latitude; // 위도
+
+      const LOCATION_URL = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`;
+      fetch(LOCATION_URL, { headers: { Authorization: `KakaoAK ${REST_API_KEY}` }, method: 'GET' })
+        .then((res) => res.json())
+        .then((data) => {
+          setCurrentLocation(`📍 ${data.documents[0].address.region_1depth_name} ${data.documents[0].address.region_2depth_name} ${data.documents[0].address.region_3depth_name}`);
+        })
+        .catch((err) => console.log(err));
+    });
   };
 
   //weather의 각 배열 요소들 중 key: category가 param에 입력된 것과 같은것만 담아 param로 받은 setState 함수를 동작시킵니다.
@@ -95,6 +112,7 @@ function App() {
   //일단 렌더링이 되면 data fetch로 날씨정보를 그대로 다 가져옵니다
   useEffect(() => {
     getWeather();
+    getLocation();
   }, []);
 
   //날씨정보를 가져오면, 온도, 날씨, 습도, 강수타입, 강수량만 각각 상태에 할당합니다
@@ -129,7 +147,10 @@ function App() {
       <main>
         <article>
           {/* 마찬가지로 조건문이 없으면 undefined에서 length를 찾으려 하기 때문에 오류가 납니다 */}
-          <header css={dateStyle}>{temp.length > 0 ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(4, 6)}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})` : null}</header>
+          <header css={dateStyle}>
+            {temp.length > 0 ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(4, 6)}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})` : null}
+            {currentLocation}
+          </header>
           <section id='weather-now'>
             <div css={divBig}>
               {sky.length > 0 && rainType.length > 0 ? (
