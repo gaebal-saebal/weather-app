@@ -62,6 +62,7 @@ function App() {
         })
         .catch((err) => {
           alert(`${err.message})`);
+          console.log(err);
         });
     });
   };
