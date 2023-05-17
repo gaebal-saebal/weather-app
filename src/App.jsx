@@ -51,8 +51,8 @@ function App() {
         fetch(URL, {
           headers: {
             Accept: 'application/json',
-            method: 'GET',
           },
+          method: 'GET',
         })
           // 일단 결과값을 readablestream에서 javascript 객체로 변환
           .then((res) => res.json())
@@ -75,7 +75,7 @@ function App() {
       let longitude = pos.coords.longitude; // 경도
       let latitude = pos.coords.latitude; // 위도
 
-      const LOCATION_URL = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}&input_coord=WGS84`;
+      const LOCATION_URL = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`;
       fetch(LOCATION_URL, {
         headers: {
           Authorization: `KakaoAK ${REST_API_KEY}`,
