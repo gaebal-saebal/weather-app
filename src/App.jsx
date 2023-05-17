@@ -58,6 +58,7 @@ function App() {
           .then((res) => res.json())
           // 변환된 'data'에서 화면에 출력할 데이터만 가져옵니다
           .then((data) => {
+            console.log(data);
             const weatherData = data.response.body.items.item;
             setWeather(weatherData);
           })
