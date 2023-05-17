@@ -69,26 +69,26 @@ function App() {
     });
   };
 
-  const getLocation = () => {
-    navigator.geolocation.getCurrentPosition(async function (pos) {
-      let longitude = pos.coords.longitude; // 경도
-      let latitude = pos.coords.latitude; // 위도
+  // const getLocation = () => {
+  //   navigator.geolocation.getCurrentPosition(async function (pos) {
+  //     let longitude = pos.coords.longitude; // 경도
+  //     let latitude = pos.coords.latitude; // 위도
 
-      const LOCATION_URL = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`;
-      fetch(LOCATION_URL, {
-        headers: {
-          Authorization: `KakaoAK ${REST_API_KEY}`,
-          Accept: 'application/json',
-        },
-        method: 'GET',
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setCurrentLocation(`📍 ${data.documents[0].address.region_1depth_name} ${data.documents[0].address.region_2depth_name} ${data.documents[0].address.region_3depth_name}`);
-        })
-        .catch((err) => console.log(err));
-    });
-  };
+  //     const LOCATION_URL = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`;
+  //     fetch(LOCATION_URL, {
+  //       headers: {
+  //         Authorization: `KakaoAK ${REST_API_KEY}`,
+  //         Accept: 'application/json',
+  //       },
+  //       method: 'GET',
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setCurrentLocation(`📍 ${data.documents[0].address.region_1depth_name} ${data.documents[0].address.region_2depth_name} ${data.documents[0].address.region_3depth_name}`);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   });
+  // };
 
   //weather의 각 배열 요소들 중 key: category가 param에 입력된 것과 같은것만 담아 param로 받은 setState 함수를 동작시킵니다.
   const getWeatherDataArr = (stateChangeFn, category) => {
@@ -117,7 +117,7 @@ function App() {
   //일단 렌더링이 되면 data fetch로 날씨정보를 그대로 다 가져옵니다
   useEffect(() => {
     getWeather();
-    getLocation();
+    // getLocation();
   }, []);
 
   //날씨정보를 가져오면, 온도, 날씨, 습도, 강수타입, 강수량만 각각 상태에 할당합니다
@@ -154,7 +154,7 @@ function App() {
           {/* 마찬가지로 조건문이 없으면 undefined에서 length를 찾으려 하기 때문에 오류가 납니다 */}
           <header css={dateStyle}>
             {temp.length > 0 ? `${temp[0].baseDate.slice(0, 4)}년 ${temp[0].baseDate.slice(4, 6)}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})` : null}
-            {currentLocation}
+            {/* {currentLocation} */}
           </header>
           <section id='weather-now'>
             <div css={divBig}>
