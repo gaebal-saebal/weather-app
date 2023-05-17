@@ -36,15 +36,15 @@ function App() {
 
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 
-  const getWeather = () => {
+  const getWeather = async () => {
     // 기상청 API는 위도 경도를 바탕으로 작성된 x,y 좌표를 사용해요
     // 그래서 위도 경도를 x,y 좌표로 바꾸어주는 함수가 src/functions/getXY.js에 있는 getXY 함수에요
     // 일단 현재 위치의 위도와 경도를 구해주기 위해서 아래 함수를 사용합니다
     navigator.geolocation.getCurrentPosition(async function (pos) {
       let latitude = pos.coords.latitude; // 위도
       let longitude = pos.coords.longitude; // 경도
-      data.nx = getXY('toXY', latitude, longitude).x; // 자세한 getXY사용법은 getXY.js에서 확인
-      data.ny = getXY('toXY', latitude, longitude).y;
+      data.nx = await getXY('toXY', latitude, longitude).x; // 자세한 getXY사용법은 getXY.js에서 확인
+      data.ny = await getXY('toXY', latitude, longitude).y;
 
       const URL = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${data.serviceKey}&numOfRows=${data.numOfRows}&pageNo=${data.pageNo}&dataType=${data.dataType}&base_date=${data.baseDate}&base_time=${data.baseTime}&nx=${data.nx}&ny=${data.ny}`;
       await fetch(URL, {
