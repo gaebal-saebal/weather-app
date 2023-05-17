@@ -36,7 +36,7 @@ function App() {
 
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 
-  const getWeather = async () => {
+  const getWeather = () => {
     // 기상청 API는 위도 경도를 바탕으로 작성된 x,y 좌표를 사용해요
     // 그래서 위도 경도를 x,y 좌표로 바꾸어주는 함수가 src/functions/getXY.js에 있는 getXY 함수에요
     // 일단 현재 위치의 위도와 경도를 구해주기 위해서 아래 함수를 사용합니다
@@ -57,12 +57,10 @@ function App() {
         .then((res) => res.json())
         // 변환된 'data'에서 화면에 출력할 데이터만 가져옵니다
         .then((data) => {
-          const weatherData = data.response.body.items.item;
-          setWeather(weatherData);
+          setWeather(data.response.body.items.item);
         })
         .catch((err) => {
           alert(`${err.message})`);
-          console.log(err);
         });
     });
   };
