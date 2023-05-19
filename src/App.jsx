@@ -55,9 +55,7 @@ function App() {
           method: 'GET',
         })
           // 일단 결과값을 readablestream에서 javascript 객체로 변환
-          .then((res) => {
-            return res.json();
-          })
+          .then((res) => res.json())
           // 변환된 'data'에서 화면에 출력할 데이터만 가져옵니다
           .then((data) => {
             setWeather(data.response.body.items.item);
