@@ -3,7 +3,7 @@ let today = new Date();
 let year = today.getFullYear();
 let month = ('0' + (today.getMonth() + 1)).slice(-2);
 let day = ('0' + today.getDate()).slice(-2);
-let hours = ('0' + today.getHours()).slice(-2) - 1;
+let hours = ('0' + (today.getHours() - 1)).slice(-2);
 let minutes = ('0' + today.getMinutes()).slice(-2);
 
 const week = ['일', '월', '화', '수', '목', '금', '토'];
