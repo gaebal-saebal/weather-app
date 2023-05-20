@@ -21,6 +21,7 @@ import {
   footerLinkStyle,
   forecastCardDiv,
   imgCardStyle,
+  locationStyle,
 } from './App.style';
 
 function App() {
@@ -174,8 +175,8 @@ function App() {
                   6
                 )}월 ${temp[0].baseDate.slice(6, 8)}일 (${dayOfWeek})`
               : null}
-            {currentLocation}
           </header>
+          <div css={locationStyle}>{currentLocation}</div>
           <section id='weather-now'>
             <div css={divBig}>
               {sky.length > 0 && rainType.length > 0 ? (

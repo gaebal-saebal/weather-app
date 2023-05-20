@@ -18,6 +18,11 @@ const dateStyle = css`
   margin-top: 30px;
   font-size: 20px;
 `;
+const locationStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const imgStyle = css`
   height: 150px;
@@ -120,4 +125,19 @@ const footerLinkStyle = css`
   }
 `;
 
-export { logoStyle, dateStyle, imgStyle, tempSizeStyle, divBig, tempSmallStyle, divSmallSpanOne, divSmallSpanTwo, forecastSection, forecastCardDiv, footerStyle, footerLinkStyle, imgCardStyle };
+export {
+  logoStyle,
+  dateStyle,
+  imgStyle,
+  tempSizeStyle,
+  divBig,
+  tempSmallStyle,
+  divSmallSpanOne,
+  divSmallSpanTwo,
+  forecastSection,
+  forecastCardDiv,
+  footerStyle,
+  footerLinkStyle,
+  imgCardStyle,
+  locationStyle,
+};
