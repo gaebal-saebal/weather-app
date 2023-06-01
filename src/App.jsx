@@ -211,7 +211,7 @@ function App() {
                 {rainAmount.length > 0
                   ? rainAmount[0].fcstValue === '강수없음'
                     ? '0'
-                    : rainAmount[0].fcstValue
+                    : rainAmount[0].fcstValue.slice(0, rainAmount[0].fcstValue.length - 2)
                   : null}
                 <span css={divSmallSpanTwo} style={{ marginLeft: '10px' }}>
                   mm
