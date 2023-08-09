@@ -10,7 +10,6 @@ import { weatherApiUrl as data, dayOfWeek } from './constants/weatherApiUrl'; //
 import {
   logoStyle,
   dateStyle,
-  imgStyle,
   tempSizeStyle,
   divBig,
   tempSmallStyle,
@@ -49,7 +48,7 @@ function App() {
         data.ny = await getXY('toXY', latitude, longitude).y;
 
         const URL = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${data.serviceKey}&numOfRows=${data.numOfRows}&pageNo=${data.pageNo}&dataType=${data.dataType}&base_date=${data.baseDate}&base_time=${data.baseTime}&nx=${data.nx}&ny=${data.ny}`;
-        await fetch(URL, {
+        fetch(URL, {
           headers: {
             Accept: 'application/json',
           },
@@ -111,10 +110,10 @@ function App() {
       skyValue === '1'
         ? (listIdx = '1')
         : skyValue === '3'
-        ? (listIdx = '3')
+        ? (listIdx = '2')
         : skyValue === '4'
-        ? (listIdx = '4')
-        : (listIdx = '0');
+        ? (listIdx = '3')
+        : null;
     } // sky에는 맑음, 구름많음, 흐림 3개 밖에 없으니 강수타입인 raintype도 확인해서 날씨그림을 결정합시다!
     if (rainType.length > 0) {
       let rainTypeValue = rainType[idx].fcstValue;
@@ -122,9 +121,9 @@ function App() {
       rainTypeValue === '2' ||
       rainTypeValue === '5' ||
       rainTypeValue === '6'
-        ? (listIdx = '6')
+        ? (listIdx = '4')
         : rainTypeValue === '3' || rainTypeValue === '7'
-        ? (listIdx = '7')
+        ? (listIdx = '5')
         : null;
     } // raintype.fcstValue가 1,2,5,6일때는 비오는 그림으로, 3,7일때는 눈오는 그림으로 변경합니다. 그 외의 경우엔 listidx를 변경하지 않을거에요.
     return listIdx;
@@ -179,17 +178,23 @@ function App() {
           <div css={locationStyle}>{currentLocation}</div>
           <section id='weather-now'>
             <div css={divBig}>
-              {sky.length > 0 && rainType.length > 0 ? (
-                <img
-                  css={imgStyle}
-                  src={process.env.PUBLIC_URL + `/${getWeatherImageName(0)}.gif`}
-                  alt='날씨'
-                />
-              ) : (
-                // sky와 raintype에 값이 할당되지 않았다는 것은, 아직 data fetch가 끝나지 않았다는 거겠죠?
-                // 그래서 sky와 raintype에 값이 할당될 때 까지 로딩중임을 표현하기 위해 0.gif을 보여줍니다.
-                <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
-              )}
+              <div style={{ width: '150px', height: '150px' }}>
+                {sky.length > 0 && rainType.length > 0 ? (
+                  // <img
+                  //   css={imgStyle}
+                  //   src={process.env.PUBLIC_URL + `/${getWeatherImageName(0)}.gif`}
+                  //   alt='날씨'
+                  // />
+                  <Lottie listIdx={getWeatherImageName(0)} />
+                ) : (
+                  // sky와 raintype에 값이 할당되지 않았다는 것은, 아직 data fetch가 끝나지 않았다는 거겠죠?
+                  // 그래서 sky와 raintype에 값이 할당될 때 까지 로딩중임을 표현하기 위해 0.gif을 보여줍니다.
+                  // <img css={imgStyle} src={process.env.PUBLIC_URL + `0.gif`} alt='날씨' />
+                  ['0'].map((a, i) => {
+                    return <Lottie key={i} listIdx={a} />;
+                  })
+                )}
+              </div>
               <span css={tempSizeStyle}>
                 {temp.length > 0 ? temp[0].fcstValue : null}
                 <span css={tempSmallStyle}>℃</span>
@@ -225,23 +230,27 @@ function App() {
                   return (
                     <div css={forecastCardDiv} key={i}>
                       <span>{`${temp[idx].fcstTime}`.slice(0, 2)}시</span>
-                      <img
+                      {/* <img
                         css={imgCardStyle}
                         src={process.env.PUBLIC_URL + `/${getWeatherImageName(idx)}.gif`}
                         alt='날씨'
-                      />
+                      /> */}
+                      <Lottie listIdx={getWeatherImageName(idx)} />
                       <span>{`${temp[idx].fcstValue}`}℃</span>
                     </div>
                   );
                 })
               : weatherImgArr.map((idx, i) => {
                   return (
-                    <img
-                      key={i}
-                      css={imgCardStyle}
-                      src={process.env.PUBLIC_URL + `0.gif`}
-                      alt='날씨'
-                    />
+                    // <img
+                    //   key={i}
+                    //   css={imgCardStyle}
+                    //   src={process.env.PUBLIC_URL + `0.gif`}
+                    //   alt='날씨'
+                    // />
+                    <div key={i} css={imgCardStyle}>
+                      <Lottie listIdx={'0'} />
+                    </div>
                   );
                 })}
           </section>

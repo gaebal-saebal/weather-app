@@ -76,9 +76,17 @@ const forecastSection = css`
   align-items: center;
   justify-content: center;
   height: 250px;
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
   div:first-of-type {
+    color: white;
+    font-weight: bold;
     margin-left: 0px;
     background: pink;
+    border-radius: 10px;
   }
   @media screen and (max-width: 580px) {
     div:nth-of-type(n + 5) {
@@ -128,7 +136,6 @@ const footerLinkStyle = css`
 export {
   logoStyle,
   dateStyle,
-  imgStyle,
   tempSizeStyle,
   divBig,
   tempSmallStyle,
